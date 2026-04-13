@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 업무 경험 8주 — 프로그램 캘린더</title>
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --dark: #1a1a2e;
+      --card: #16213e;
+      --card2: #0f3460;
+      --text: #e0e0e0;
+      --muted: #a0a0b0;
+      --p1: #40c4ff;
+      --p2: #7c4dff;
+      --p2b: #00e676;
+      --p3: #ffab00;
+      --p3b: #f50057;
+      --sun: #ff6b6b44;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      line-height: 1.5;
+      padding: 32px 20px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--primary);
+    }
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    header h1 span { color: var(--primary); }
+    header p { color: var(--muted); font-size: 0.95rem; }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .meta span {
+      background: var(--card);
+      border: 1px solid #ffffff18;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    nav.top {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    nav.top a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    nav.top a:hover { text-decoration: underline; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 28px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .legend i {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    h2.section {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 32px 0 14px;
+      padding-left: 10px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .week-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .week-card {
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      border-radius: 12px;
+      padding: 14px 16px;
+      border-top: 4px solid var(--accent, var(--primary));
+    }
+    .week-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .week-card .dates {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .week-card .phase {
+      font-size: 0.72rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .week-card a {
+      font-size: 0.78rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .week-card a:hover { text-decoration: underline; }
+
+    .month-block {
+      margin-bottom: 36px;
+    }
+    .month-block h3 {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .cal-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #ffffff12;
+    }
+    .cal-table th {
+      background: var(--card2);
+      color: var(--muted);
+      padding: 10px 6px;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+    .cal-table th.sun { color: #ff8a80; }
+    .cal-table th.sat { color: #82b1ff; }
+    .cal-table td {
+      vertical-align: top;
+      width: 14.28%;
+      padding: 0;
+      border: 1px solid #ffffff0d;
+      overflow: hidden;
+    }
+    .cal-table td.empty {
+      background: #0a0a12;
+      min-height: 104px;
+    }
+    .cal-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-height: 104px;
+      max-height: 112px;
+      padding: 5px 5px 6px;
+      gap: 3px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .cal-table td.other-month {
+      opacity: 0.35;
+    }
+    .day-num {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.15;
+      flex: 0 0 auto;
+    }
+    .day-cell-inner {
+      flex: 1 1 auto;
+      min-height: 0;
+      border-radius: 6px;
+      padding: 4px 5px 5px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .day-cell-inner.program {
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .day-cell-inner.program:hover {
+      filter: brightness(1.12);
+      box-shadow: 0 0 0 1px #ffffff30;
+    }
+    .day-cell-inner.program a {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+    }
+    .wk-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      opacity: 0.95;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+    .day-title {
+      font-size: 0.58rem;
+      color: var(--text);
+      opacity: 0.88;
+      line-height: 1.22;
+      margin-top: 1px;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    .ph1 { background: linear-gradient(135deg, #40c4ff33, #40c4ff18); border-left: 3px solid var(--p1); }
+    .ph2 { background: linear-gradient(135deg, #7c4dff33, #7c4dff18); border-left: 3px solid var(--p2); }
+    .ph2b { background: linear-gradient(135deg, #00e67633, #00e67618); border-left: 3px solid var(--p2b); }
+    .ph3 { background: linear-gradient(135deg, #ffab0033, #ffab0018); border-left: 3px solid var(--p3); }
+    .ph3b { background: linear-gradient(135deg, #f5005733, #f5005718); border-left: 3px solid var(--p3b); }
+    .day-cell-inner.holiday {
+      background: linear-gradient(135deg, #ff6b6b28, #ff6b6b12);
+      border-left: 3px solid #ff8a80;
+      cursor: default;
+    }
+    .day-cell-inner.holiday .wk-tag { color: #ffab91; }
+
+    @media (max-width: 600px) {
+      .cal-cell { min-height: 56px; max-height: 64px; padding: 4px 3px 5px; gap: 2px; }
+      .cal-table td.empty { min-height: 56px; }
+      .day-title { -webkit-line-clamp: 2; font-size: 0.55rem; }
+      .wk-tag { font-size: 0.55rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top">
+    <a href="index.html">← 8주 프로그램 대시보드</a>
+  </nav>
+
+  <header>
+    <h1>📅 AI 업무 경험 <span>8주 캘린더</span></h1>
+    <p>평일 13:00–18:00 인턴 업무일 기준 · 멘토 조준형 · 미니 프로젝트 개별 수행</p>
+    <div class="meta">
+      <span>📆 2026.04.13 ~ 06.05</span>
+      <span>⏱ 주 25시간 (평일 5일 × 5시간)</span>
+      <span>🔗 셀 클릭 시 해당 일차 학습 페이지 · 공휴일(평일)은 일정 없음</span>
+    </div>
+  </header>
+
+  <div class="legend">
+    <span><i style="background:var(--p1)"></i>Phase 1 — 탐색·AI 환경 (1~2주)</span>
+    <span><i style="background:var(--p2)"></i>Phase 2 — AI 툴 심화 (3~4주)</span>
+    <span><i style="background:var(--p2b)"></i>Phase 2 — 데이터·기획 (5주)</span>
+    <span><i style="background:var(--p3)"></i>Phase 3 — 개인 미니 PJ (6주)</span>
+    <span><i style="background:var(--p3b)"></i>Phase 3 — 완성·발표·수료 (7~8주)</span>
+    <span><i style="background:#ff8a80"></i>공휴일 — 인턴 일정 없음</span>
+  </div>
+
+  <h2 class="section">주차별 요약</h2>
+  <div class="week-cards" id="week-cards"></div>
+
+  <h2 class="section">월별 캘린더</h2>
+  <div id="months"></div>
+
+  <script>
+    (function () {
+      const DAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
+
+      const WEEKS = [
+        { n: 1, phase: "Phase 1", phaseClass: "ph1", theme: "온보딩·환경", range: "4/13 ~ 4/17",
+          days: ["온보딩·OT", "Claude·Cursor", "젠스파크·오픈클로", "LLM 동향 과제", "주간미팅·일지"] },
+        { n: 2, phase: "Phase 1", phaseClass: "ph1", theme: "트렌드·산업 사례", range: "4/20 ~ 4/24",
+          days: ["심화 리서치", "산업·서비스 사례", "Cowork WF", "프롬프트 기초", "보고서 1차·피드백"] },
+        { n: 3, phase: "Phase 2", phaseClass: "ph2", theme: "Cursor·API", range: "4/27 ~ 5/1",
+          days: ["코딩 실습", "GA4·자동화", "API 파이프라인", "Few-shot·CoT", "스크립트+가이드"] },
+        { n: 4, phase: "Phase 2", phaseClass: "ph2", theme: "업무 자동화", range: "5/4 ~ 5/8",
+          days: ["Cowork 자동화", "반복 리포트", "오픈클로 템플릿", "툴 비교", "중간점검·PJ 확정"] },
+        { n: 5, phase: "Phase 2", phaseClass: "ph2b", theme: "데이터·기획서", range: "5/11 ~ 5/15",
+          days: ["데이터 분석", "텍스트·파이프라인", "Looker·시각화", "벤치마크", "미니 PJ 기획서"] },
+        { n: 6, phase: "Phase 3", phaseClass: "ph3", theme: "개인 미니 프로젝트", range: "5/18 ~ 5/22",
+          days: ["스프린트·환경", "핵심 파이프라인", "Cowork·문서", "중간 점검", "PPT·6주 회고"] },
+        { n: 7, phase: "Phase 3", phaseClass: "ph3b", theme: "완성·발표 준비", range: "5/25 ~ 5/29",
+          days: ["완성·엣지", "패키징·README", "PPT·데모 동결", "리허설·Q&A", "7주 회고·8주 준비"] },
+        { n: 8, phase: "Phase 3", phaseClass: "ph3b", theme: "최종·수료", range: "6/1 ~ 6/5",
+          days: ["발표 리허설", "🎉 최종 발표", "회고 보고서", "아이뱅크 제안·면담", "🎓 수료·GitHub"] },
+      ];
+
+      const START_DATES = [
+        [2026, 4, 13], [2026, 4, 20], [2026, 4, 27], [2026, 5, 4], [2026, 5, 11],
+        [2026, 5, 18], [2026, 5, 25], [2026, 6, 1],
+      ];
+
+      /** 프로그램 기간 평일 휴무: 국경일·대체·선거 임시공휴일 + 근로기준법 유급휴일(근로자의 날). */
+      const HOLIDAYS = {
+        "2026-05-01": "근로자의 날",
+        "2026-05-05": "어린이날",
+        "2026-05-25": "부처님오신날(대체공휴일)",
+        "2026-06-03": "제9회 전국동시지방선거(임시공휴일)",
+      };
+
+      function pad(n) { return n < 10 ? "0" + n : "" + n; }
+      function key(y, m, d) { return y + "-" + pad(m) + "-" + pad(d); }
+
+      const lookup = {};
+      START_DATES.forEach(function (start, wi) {
+        const w = WEEKS[wi];
+        const t0 = new Date(start[0], start[1] - 1, start[2]);
+        for (let di = 0; di < 5; di++) {
+          const dt = new Date(t0);
+          dt.setDate(t0.getDate() + di);
+          const k = key(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+          lookup[k] = {
+            week: w.n,
+            dayIndex: di + 1,
+            title: w.days[di],
+            phaseClass: w.phaseClass,
+          };
+        }
+      });
+
+      const cards = document.getElementById("week-cards");
+      WEEKS.forEach(function (w) {
+        const el = document.createElement("div");
+        el.className = "week-card";
+        el.style.setProperty("--accent", "var(--primary)");
+        el.style.borderTopColor = w.phaseClass === "ph1" ? "#40c4ff"
+          : w.phaseClass === "ph2" ? "#7c4dff"
+          : w.phaseClass === "ph2b" ? "#00e676"
+          : w.phaseClass === "ph3" ? "#ffab00" : "#f50057";
+        el.innerHTML =
+          "<h3>" + w.n + "주차 <small style='font-weight:600;color:#a0a0b0'>" + w.theme + "</small></h3>" +
+          "<div class='dates'>📅 " + w.range + "</div>" +
+          "<div class='phase'>" + w.phase + "</div>" +
+          "<a href='week" + w.n + "/day1.html'>이 주차 학습 페이지 열기 →</a>";
+        cards.appendChild(el);
+      });
+
+      function renderMonth(year, month) {
+        const first = new Date(year, month - 1, 1);
+        const last = new Date(year, month, 0);
+        const startWeekday = first.getDay();
+        const daysInMonth = last.getDate();
+
+        const title = document.createElement("div");
+        title.className = "month-block";
+        const h3 = document.createElement("h3");
+        h3.textContent = year + "년 " + month + "월";
+        title.appendChild(h3);
+
+        const table = document.createElement("table");
+        table.className = "cal-table";
+        const thead = document.createElement("thead");
+        const trh = document.createElement("tr");
+        for (let i = 0; i < 7; i++) {
+          const th = document.createElement("th");
+          th.textContent = DAY_LABELS[i];
+          if (i === 0) th.className = "sun";
+          if (i === 6) th.className = "sat";
+          trh.appendChild(th);
+        }
+        thead.appendChild(trh);
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        let d = 1;
+        let row = document.createElement("tr");
+
+        for (let i = 0; i < startWeekday; i++) {
+          const td = document.createElement("td");
+          td.className = "empty";
+          row.appendChild(td);
+        }
+
+        while (d <= daysInMonth) {
+          if (row.children.length === 7) {
+            tbody.appendChild(row);
+            row = document.createElement("tr");
+          }
+          const td = document.createElement("td");
+          const k = key(year, month, d);
+          const wday = new Date(year, month - 1, d).getDay();
+          const holiname = HOLIDAYS[k];
+          const info = lookup[k];
+
+          const num = document.createElement("div");
+          num.className = "day-num";
+          num.textContent = d;
+
+          const cellWrap = document.createElement("div");
+          cellWrap.className = "cal-cell";
+
+          if (holiname != null && wday >= 1 && wday <= 5) {
+            const inner = document.createElement("div");
+            inner.className = "day-cell-inner holiday";
+            inner.innerHTML =
+              "<div class='wk-tag'>공휴일</div>" +
+              "<div class='day-title'>" + holiname + "</div>";
+            cellWrap.appendChild(num);
+            cellWrap.appendChild(inner);
+          } else if (info) {
+            const inner = document.createElement("div");
+            inner.className = "day-cell-inner program " + info.phaseClass;
+            const a = document.createElement("a");
+            a.href = "week" + info.week + "/day" + info.dayIndex + ".html";
+            a.innerHTML =
+              "<div class='wk-tag'>" + info.week + "주차 D" + info.dayIndex + "</div>" +
+              "<div class='day-title'>" + info.title + "</div>";
+            inner.appendChild(a);
+            cellWrap.appendChild(num);
+            cellWrap.appendChild(inner);
+          } else {
+            const inner = document.createElement("div");
+            inner.className = "day-cell-inner";
+            if (wday === 0 || wday === 6) inner.style.opacity = "0.4";
+            cellWrap.appendChild(num);
+            cellWrap.appendChild(inner);
+          }
+          td.appendChild(cellWrap);
+          row.appendChild(td);
+          d++;
+        }
+
+        while (row.children.length < 7) {
+          const td = document.createElement("td");
+          td.className = "empty";
+          row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        table.appendChild(tbody);
+        title.appendChild(table);
+        return title;
+      }
+
+      const host = document.getElementById("months");
+      host.appendChild(renderMonth(2026, 4));
+      host.appendChild(renderMonth(2026, 5));
+      host.appendChild(renderMonth(2026, 6));
+    })();
+  </script>
+</body>
+</html>

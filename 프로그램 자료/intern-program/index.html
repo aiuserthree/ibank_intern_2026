@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 인턴십 8주 프로그램 대시보드</title>
+<style>
+  :root{--primary:#6c63ff;--dark:#1a1a2e;--card:#16213e;--card2:#0f3460;--text:#e0e0e0;--muted:#a0a0b0;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--dark);color:var(--text);font-family:'Segoe UI',sans-serif;}
+  header{background:linear-gradient(135deg,#0f3460,#1a1a2e);padding:48px 32px;text-align:center;border-bottom:2px solid var(--primary);}
+  header h1{font-size:2.2rem;font-weight:900;margin-bottom:10px;}
+  header h1 span{color:var(--primary);}
+  header p{color:var(--muted);font-size:1rem;}
+  .meta-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:18px;}
+  .meta-chip{background:var(--card);border:1px solid #ffffff18;border-radius:20px;padding:6px 16px;font-size:.82rem;color:var(--muted);}
+  .container{max-width:1100px;margin:0 auto;padding:40px 24px;}
+  .week-block{margin-bottom:40px;}
+  .week-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--primary);opacity:.8;}
+  .week-header h2{font-size:1.2rem;font-weight:800;}
+  .week-phase{font-size:.78rem;color:var(--muted);background:var(--card);padding:3px 12px;border-radius:12px;border:1px solid #ffffff18;}
+  .day-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+  .day-card{background:var(--card);border:1px solid #ffffff12;border-radius:10px;padding:16px 12px;text-align:center;transition:.2s;cursor:pointer;}
+  .day-card:hover{background:var(--card2);border-color:var(--primary);transform:translateY(-2px);}
+  .day-card a{text-decoration:none;color:inherit;display:block;}
+  .day-label{font-size:.72rem;color:var(--muted);margin-bottom:4px;}
+  .day-title{font-size:.82rem;font-weight:700;color:var(--text);}
+  .day-num{width:28px;height:28px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin:0 auto 8px;}
+  .phase-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;}
+  @media(max-width:600px){.day-grid{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🤖 AI 업무 경험 <span>8주 프로그램</span></h1>
+  <p>미래내일 일경험(인턴형) · 아이뱅크 · Claude Cowork · Cursor · 젠스파크 · 오픈클로 — 계획서 최종 기준</p>
+  <div class="meta-row">
+    <span class="meta-chip">🎯 개인 미니 PJ (후보 4종): VOC 대시보드 · RAG 챗봇 · 트렌드 브리핑 · 업무 자동화</span>
+    <span class="meta-chip">📅 2026.04.13 ~ 2026.06.05</span>
+    <span class="meta-chip">⏱ 평일 13:00–18:00 (5시간/일) · 주 25시간 · 오프라인 중심</span>
+    <span class="meta-chip">👤 멘토 조준형 · 미니 프로젝트는 인턴 개별 수행</span>
+    <span class="meta-chip">📣 주간 멘토 미팅 30분 + 개인 데일리 체크인 15분</span>
+  </div>
+</header>
+<div class="container">
+  <div class="phase-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#40c4ff"></div>Phase 1 — 탐색·AI 환경 구축 (1~2주)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7c4dff"></div>Phase 2 — AI 툴 심화·개인 역량 (3~5주)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00e676"></div>Phase 3 — 개인 미니 프로젝트·결과 (6~8주)</div>
+  </div>
+  <p style="text-align:center;margin:0 0 28px;font-size:.9rem;color:#a0a0b0;">📅 <a href="calendar.html" style="color:#6c63ff;font-weight:600;">주차별 캘린더</a> (월별 한눈에 보기) · 📎 <a href="../intern-documents/docs/README.md" style="color:#6c63ff;font-weight:600;">업무일지·문서 양식</a> (Markdown) — 일지, 주간요약, 멘토 미팅, KPT, 미니 PJ 기획서, 회고 보고서 목차</p>
+
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#40c4ff;border-radius:2px;"></div>
+      <h2>1주차</h2>
+      <span class="week-phase">온보딩·환경 (계획서 1주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week1/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">온보딩·OT</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week1/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">Claude·Cursor</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week1/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">젠스파크·오픈클로</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week1/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">LLM 동향 과제</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week1/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">주간미팅·일지</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#40c4ff;border-radius:2px;"></div>
+      <h2>2주차</h2>
+      <span class="week-phase">트렌드·산업 사례 (2주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week2/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">심화 리서치</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week2/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">산업·서비스 사례</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week2/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">Cowork WF</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week2/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">프롬프트 기초</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week2/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">보고서 1차·피드백</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#7c4dff;border-radius:2px;"></div>
+      <h2>3주차</h2>
+      <span class="week-phase">Cursor·API (3주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week3/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">코딩 실습</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week3/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">GA4·자동화</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week3/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">API 파이프라인</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week3/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">Few-shot·CoT</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week3/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">스크립트+가이드</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#7c4dff;border-radius:2px;"></div>
+      <h2>4주차</h2>
+      <span class="week-phase">업무 자동화 (4주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week4/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">Cowork 자동화</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week4/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">반복 리포트</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week4/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">오픈클로 템플릿</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week4/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">툴 비교</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week4/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">미니 PJ 주제 확정</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#00e676;border-radius:2px;"></div>
+      <h2>5주차</h2>
+      <span class="week-phase">데이터·기획서 (5주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week5/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">텍스트·파이프라인</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week5/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">공개데이터·Cursor</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week5/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">Looker·시각화</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week5/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">글로벌 벤치마크</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week5/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">미니 PJ 기획서</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#ffab00;border-radius:2px;"></div>
+      <h2>6주차</h2>
+      <span class="week-phase">미니 프로젝트 (6주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week6/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">스프린트·환경</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week6/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">핵심 파이프라인</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week6/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">Cowork·문서</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week6/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">중간 점검</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week6/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">PPT·6주 회고</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#f50057;border-radius:2px;"></div>
+      <h2>7주차</h2>
+      <span class="week-phase">완성·발표 준비 (7주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week7/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">완성·엣지</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week7/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">패키징·README</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week7/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">PPT·데모 동결</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week7/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">리허설·Q&A</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week7/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">7주 회고·8주 준비</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header">
+      <div style="width:4px;height:24px;background:#f50057;border-radius:2px;"></div>
+      <h2>8주차</h2>
+      <span class="week-phase">최종·수료 (8주)</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <a href="week8/day1.html">
+          <div class="day-num">1</div>
+          <div class="day-label">월요일</div>
+          <div class="day-title">발표 리허설</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week8/day2.html">
+          <div class="day-num">2</div>
+          <div class="day-label">화요일</div>
+          <div class="day-title">🎉 최종 발표</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week8/day3.html">
+          <div class="day-num">3</div>
+          <div class="day-label">수요일</div>
+          <div class="day-title">회고 보고서</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week8/day4.html">
+          <div class="day-num">4</div>
+          <div class="day-label">목요일</div>
+          <div class="day-title">아이뱅크 제안·면담</div>
+        </a>
+      </div>
+      <div class="day-card">
+        <a href="week8/day5.html">
+          <div class="day-num">5</div>
+          <div class="day-label">금요일</div>
+          <div class="day-title">🎓 수료·GitHub</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

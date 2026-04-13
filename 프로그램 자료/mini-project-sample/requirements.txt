@@ -1,0 +1,4 @@
+# 서비스 리뷰·VOC AI 분석 대시보드 (샘플) — 표준 라이브러리만 (추가 설치 불필요)
+# 실제 과제에서 Claude API·dotenv를 쓸 때만 아래 주석 해제 등으로 확장
+# anthropic>=0.25.0
+# python-dotenv>=1.0.0

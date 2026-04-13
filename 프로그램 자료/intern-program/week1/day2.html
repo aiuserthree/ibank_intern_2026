@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W1D2 - AI 개발 환경 셋업 ① — Claude Cowork & Cursor</title>
+<style>
+  :root {
+    --primary:#6c63ff;--secondary:#f50057;--dark:#1a1a2e;
+    --card:#16213e;--card2:#0f3460;--text:#e0e0e0;--muted:#a0a0b0;
+    --success:#00e676;--warning:#ffab00;--info:#40c4ff;--phase:#7c4dff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--dark);color:var(--text);font-family:'Segoe UI',sans-serif;line-height:1.7;}
+  a{color:var(--primary);text-decoration:none;}
+  .topnav{background:var(--card);padding:14px 32px;display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--primary);}
+  .topnav svg{width:28px;height:28px;}
+  .breadcrumb{font-size:.9rem;color:var(--muted);}
+  .breadcrumb span{color:var(--text);font-weight:600;}
+  .hero{background:linear-gradient(135deg,var(--card2),var(--card));padding:48px 32px 36px;border-bottom:1px solid #ffffff18;}
+  .hero .meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .chip{padding:4px 14px;border-radius:20px;font-size:.78rem;font-weight:700;}
+  .chip.week{background:#7c4dff33;color:#b39ddb;border:1px solid #7c4dff55;}
+  .chip.day{background:#00e67622;color:#00e676;border:1px solid #00e67644;}
+  .chip.date{background:#40c4ff22;color:#40c4ff;border:1px solid #40c4ff44;}
+  .chip.phase{background:#f5005722;color:#f48fb1;border:1px solid #f5005744;}
+  .hero h1{font-size:2rem;font-weight:800;margin-bottom:10px;}
+  .hero h1 span{color:var(--primary);}
+  .hero p{color:var(--muted);max-width:640px;}
+  .container{max-width:960px;margin:0 auto;padding:40px 24px;}
+  .section-title{font-size:1.2rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+  .section-title svg{width:22px;height:22px;}
+  .timeline{position:relative;padding-left:28px;margin-bottom:40px;}
+  .timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--primary);opacity:.35;}
+  .tl-item{position:relative;margin-bottom:22px;}
+  .tl-item::before{content:'';position:absolute;left:-24px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:0 0 8px var(--primary);}
+  .tl-time{font-size:.78rem;color:var(--primary);font-weight:700;margin-bottom:2px;}
+  .tl-title{font-weight:700;font-size:1rem;margin-bottom:4px;}
+  .tl-desc{font-size:.88rem;color:var(--muted);}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:36px;}
+  .card{background:var(--card);border:1px solid #ffffff15;border-radius:12px;padding:22px 20px;}
+  .card h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
+  .card p{font-size:.85rem;color:var(--muted);}
+  .card.blue{border-top:3px solid #40c4ff;}
+  .card.purple{border-top:3px solid #7c4dff;}
+  .card.green{border-top:3px solid #00e676;}
+  .card.orange{border-top:3px solid #ffab00;}
+  .card.red{border-top:3px solid #f50057;}
+  .code-block{background:#0d0d1a;border:1px solid #ffffff18;border-radius:10px;padding:20px;margin-bottom:28px;overflow-x:auto;}
+  .code-block pre{font-family:'Courier New',monospace;font-size:.82rem;color:#a8d8a8;line-height:1.8;}
+  .code-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+  .lang-badge{background:var(--primary);color:#fff;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:10px;}
+  .code-title{font-size:.88rem;color:var(--muted);}
+  .tip-box{background:#7c4dff15;border:1px solid #7c4dff44;border-radius:10px;padding:18px 20px;margin-bottom:28px;display:flex;gap:12px;align-items:flex-start;}
+  .tip-box svg{width:22px;height:22px;flex-shrink:0;margin-top:2px;}
+  .tip-box p{font-size:.88rem;color:var(--muted);}
+  .tip-box strong{color:var(--text);}
+  .checklist{background:var(--card);border-radius:12px;padding:24px;margin-bottom:28px;}
+  .checklist ul{list-style:none;}
+  .checklist li{padding:8px 0;border-bottom:1px solid #ffffff0d;display:flex;align-items:flex-start;gap:10px;font-size:.9rem;}
+  .checklist li:last-child{border-bottom:none;}
+  .check-icon{width:20px;height:20px;flex-shrink:0;margin-top:1px;}
+  .output-box{background:var(--card2);border:1px solid #40c4ff33;border-radius:12px;padding:24px;margin-bottom:40px;}
+  .output-box h3{font-size:1rem;font-weight:700;color:#40c4ff;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .output-box ul{list-style:none;}
+  .output-box li{padding:6px 0;font-size:.88rem;display:flex;align-items:center;gap:8px;color:var(--muted);}
+  .output-box li::before{content:'→';color:#40c4ff;font-weight:700;}
+  .day-nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-top:1px solid #ffffff18;margin-top:10px;gap:8px;flex-wrap:wrap;}
+  .day-nav-mid{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;}
+  .day-nav a{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;background:var(--card);font-weight:600;font-size:.9rem;transition:.2s;}
+  .day-nav a:hover{background:var(--card2);}
+  .styled-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:.88rem;}
+  .styled-table th{background:var(--card2);color:var(--primary);padding:10px 14px;text-align:left;font-weight:700;}
+  .styled-table td{padding:10px 14px;border-bottom:1px solid #ffffff0d;color:var(--muted);}
+  .styled-table tr:hover td{background:#ffffff05;}
+  .kpt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px;}
+  .kpt-card{background:var(--card);border-radius:12px;padding:22px;}
+  .kpt-card.keep{border-top:3px solid #00e676;}
+  .kpt-card.problem{border-top:3px solid #f50057;}
+  .kpt-card.try{border-top:3px solid #40c4ff;}
+  .kpt-card h3{font-size:.95rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .kpt-card ul{list-style:none;}
+  .kpt-card li{font-size:.83rem;color:var(--muted);padding:5px 0;border-bottom:1px solid #ffffff08;}
+  .kpt-card li:last-child{border-bottom:none;}
+  .kpt-card li::before{content:'• ';color:var(--primary);}
+  .next-week{background:linear-gradient(135deg,#0f3460,#1a1a2e);border:1px solid var(--primary);border-radius:12px;padding:24px;margin-bottom:28px;}
+  .next-week h3{font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:16px;}
+  .next-week-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .nw-day{background:var(--card);border-radius:8px;padding:12px 8px;text-align:center;}
+  .nw-day .day-num{font-size:.75rem;color:var(--muted);margin-bottom:4px;}
+  .nw-day .day-title{font-size:.78rem;font-weight:700;color:var(--text);}
+  .prompt-box{background:#0d0d1a;border:1px solid #7c4dff55;border-radius:10px;padding:20px;margin-bottom:28px;}
+  .prompt-box .pb-header{font-size:.8rem;color:#7c4dff;font-weight:700;margin-bottom:10px;}
+  .prompt-box pre{font-family:'Courier New',monospace;font-size:.82rem;color:#e0e0e0;line-height:1.8;white-space:pre-wrap;}
+  .pipeline{display:flex;gap:0;flex-wrap:wrap;margin-bottom:40px;align-items:stretch;}
+  .pipe-step{flex:1;min-width:130px;background:var(--card);border:1px solid #ffffff18;padding:18px 12px;position:relative;text-align:center;}
+  .pipe-step:not(:last-child)::after{content:'▶';position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:1rem;z-index:2;}
+  .pipe-step .pipe-label{font-weight:700;font-size:.88rem;margin-bottom:6px;}
+  .pipe-step .pipe-desc{font-size:.76rem;color:var(--muted);}
+  .pipe-step.s1{border-top:3px solid #40c4ff;}
+  .pipe-step.s2{border-top:3px solid #7c4dff;}
+  .pipe-step.s3{border-top:3px solid #00e676;}
+  .pipe-step.s4{border-top:3px solid #ffab00;}
+  .pipe-step.s5{border-top:3px solid #f50057;}
+  @media(max-width:640px){.day-nav{flex-direction:column;}.day-nav-mid{order:-1;width:100%;}}
+  @media(max-width:600px){.kpt-grid{grid-template-columns:1fr;}.next-week-grid{grid-template-columns:repeat(3,1fr);}.pipeline{flex-direction:column;}.pipe-step:not(:last-child)::after{content:'▼';right:50%;top:auto;bottom:-14px;}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  <div class="breadcrumb">
+    <a href="../index.html">홈</a> · <a href="../calendar.html">캘린더</a> › <a href="day1.html">1주차</a> › <span>Day 2 – AI 개발 환경 셋업 ① — Claude Cowork & Cursor</span>
+  </div>
+</nav>
+<div class="hero">
+  <div class="meta">
+    <span class="chip week">1주차</span>
+    <span class="chip day">DAY 2</span>
+    <span class="chip date">📅 2026-04-14 (화)</span>
+    <span class="chip phase">🔬 Phase 1 – 탐색·환경 구축 (1~2주)</span>
+  </div>
+  <h1><span>AI 개발 환경 셋업 ① — Claude Cowork & Cursor</span></h1>
+  <p>계획서 1주차: AI 개발 환경 셋업 — Claude Cowork, Cursor IDE 설치·계정·기본 동작 확인.</p>
+</div>
+<div class="container">
+  <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 일일 스케줄</div>
+  <div class="timeline"><div class="tl-item"><div class="tl-time">13:00–14:00</div><div class="tl-title">Claude Cowork — 설치부터 첫 대화까지</div><div class="tl-desc">① <strong>개념</strong> — Cowork는 브라우저만이 아니라 <strong>데스크톱 에이전트</strong>로 폴더·파일을 읽고 초안을 쓰는 도구임을 한 줄로 메모<br>② <strong>다운로드·설치</strong> — 공식 채널에서 OS에 맞는 앱 설치 → 실행 → 업데이트 있으면 적용<br>③ <strong>로그인</strong> — Claude/Anthropic 계정 또는 회사에서 안내한 SSO·초대 링크로 로그인 (막히면 스크린샷·에러 문구만 캡처, 비밀번호는 금지)<br>④ <strong>워크스페이스</strong> — 새 워크스페이스 생성 → 이름 규칙 예: <code>intern_w1_ai_setup</code><br>⑤ <strong>샘플 파일</strong> — 연습용 <code>.txt</code> 또는 짧은 <code>.md</code> 1개를 워크스페이스에 넣기 (공개 가능한 텍스트만)<br>⑥ <strong>첫 프롬프트</strong> — 「이 문서를 읽고 핵심만 3줄로 요약해 줘. 각 줄 끝에 근거가 된 문장을 괄호로 표시해 줘.」<br>⑦ <strong>검증</strong> — 응답이 나오면: 요약 3줄 존재 여부, 환각이면 「모른다」로 고치도록 한 번 더 요청해 보기<br>⑧ <strong>기록</strong> — 사용한 모델명·대략 소요 시간·막힌 단계를 <code>cowork_first_session.md</code>에 적기 시작</div></div><div class="tl-item"><div class="tl-time">14:00–15:00</div><div class="tl-title">Cursor IDE — 설치·익스텐션·첫 코드</div><div class="tl-desc">① <strong>설치</strong> — cursor.com 에서 OS용 설치 파일 받기 → 설치 → 실행<br>② <strong>계정</strong> — Cursor 계정 로그인(또는 GitHub 연동) — 팀 정책 있으면 안내대로<br>③ <strong>Python</strong> — 로컬에 Python 3.10+ 설치 여부 확인 — 터미널에서 <code>python3 --version</code> — 없으면 python.org 또는 회사 표준 경로로 설치<br>④ <strong>익스텐션</strong> — Python / Pylance(또는 회사 권장 목록) 설치 — JS는 차주로 미룰 수 있음<br>⑤ <strong>인터프리터</strong> — Command Palette → Python 인터프리터 선택 → venv는 <code>python -m venv .venv</code> 후 지정<br>⑥ <strong>AI 설정</strong> — Cursor 설정에서 모델·Tab 완성 — 회사 허용 모델만<br>⑦ <strong>첫 파일</strong> — <code>hello_w1d2.py</code> → <code>print("ok")</code> 실행 확인<br>⑧ <strong>Tab</strong> — 주석 한 줄 후 Tab 제안 수락/거절 연습<br>⑨ <strong>메모</strong> — <code>cursor_setup_notes.md</code>에 버전·경로·이슈</div></div><div class="tl-item"><div class="tl-time">15:00–16:00</div><div class="tl-title">Cowork ↔ Cursor 역할 구분 · 미니 실습</div><div class="tl-desc">① <strong>규칙 5줄</strong> — (1) 긴 문서·리포트 초안은 Cowork (2) 코드·API는 Cursor (3) 산출물 폴더 <code>docs/</code> vs <code>src/</code> … 본인 문장으로<br>② <strong>샘플 텍스트</strong> — 공개 뉴스/보도 1페이지 → <code>sample.txt</code><br>③ <strong>Cowork</strong> — 「불릿 5개 + 한 문단 요약」→ 응답 복사<br>④ <strong>Cursor</strong> — <code>sample_notes.py</code> 또는 <code>notes.md</code>에 붙여넣기 → 주석으로 출처 표시 → 각 불릿에 「코드로 검증 가능?」 코멘트<br>⑤ <strong>정리</strong> — 규칙 5줄을 한 파일로 저장</div></div><div class="tl-item"><div class="tl-time">16:00–17:00</div><div class="tl-title">계정·보안 · API 키·캡처</div><div class="tl-desc">① <strong>2FA</strong> — Claude·Cursor·GitHub 등 2단계 인증 켜기 — 백업 코드 안전 보관<br>② <strong>API 키</strong> — 코드에 직접 쓰지 않음 — <code>.env</code> + <code>.gitignore</code> — <code>.env.example</code>에 키 이름만<br>③ <strong>저장소</strong> — 테스트 repo가 있으면 private·초대자 확인<br>④ <strong>스크린샷</strong> — 이메일·토큰·내부명 가리기<br>⑤ <strong>회사 데이터</strong> — Cowork/Cursor에 넣기 전 규정 확인 — 불확실하면 공개 샘플만</div></div><div class="tl-item"><div class="tl-time">17:00–18:00</div><div class="tl-title">오늘 로그 · 이슈 · 멘토 질문</div><div class="tl-desc">① <strong>일지</strong> — 오늘 5구간 채움·산출물 파일명<br>② <strong>이슈</strong> — <code>open_questions_w1.md</code>에 재현 순서<br>③ <strong>질문 3개</strong> — 금요일 미팅용·우선순위·시도한 것 한 줄<br>④ <strong>폴더</strong> — 오늘 md/py 한 곳에 모으기 — 내일 젠스파크 전 백업</div></div></div>
+  <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> 핵심 내용</div>
+  <div class="cards-grid"><div class="card blue"><h3>Claude Cowork</h3><p>계획서: 주간 업무 정리·리서치 보고서 초안·텍스트 분석 지원</p></div><div class="card purple"><h3>Cursor IDE</h3><p>계획서: Python 완성·리팩터링·API 연동 실습 예정</p></div><div class="card green"><h3>역할 정리</h3><p>문서·코드·분석 — 본인 산출물 기준으로 Cowork/Cursor 쓰임새·폴더 규칙 통일</p></div><div class="card orange"><h3>보안</h3><p>API 키·내부 자료는 공유 전 항상 검토</p></div></div>
+  <div class="output-box" style="margin-bottom:28px;border-color:#7c4dff55;"><h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#40c4ff" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> 산출물 샘플 문서 (참고용)</h3><p style="font-size:.88rem;color:var(--muted);margin-bottom:12px;line-height:1.6;"><strong>W1 Day2</strong> 예시 문서입니다. 경로: <code>intern-documents/docs_output/samples/w1d2/</code> — 복사해 본인 환경에 맞게 수정하세요.</p><ul style="list-style:none;font-size:.88rem;color:var(--text);line-height:1.85;"><li style="display:flex;align-items:flex-start;gap:8px;"><span style="color:#40c4ff;">→</span><span><a href="../../intern-documents/docs_output/samples/w1d2/README.md" style="color:var(--primary);font-weight:600;">README.md</a> — 오늘 산출물 목록·작성 가이드·샘플 파일</span></li></ul></div>
+  <div class="tip-box"><svg viewBox="0 0 24 24" fill="none" stroke="#7c4dff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>💡 <strong>오늘의 팁:</strong> 계획서의 툴 매트릭스에 따르면 Cowork는 <strong>파일·리포트</strong>에, Cursor는 <strong>코드·API</strong>에 초점을 둡니다. 첫 주에 습관을 나누면 이후 주차가 수월합니다.</p></div>
+  <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> 오늘의 체크리스트</div>
+  <div class="checklist"><ul><li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Claude Cowork 실행·첫 대화 성공</li><li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Cursor 설치 및 Tab 동작 확인</li><li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>개인 작업 규칙(Cowork/Cursor·폴더) 1페이지</li><li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>API 키 관리 규칙(코드 미삽입) 확인</li><li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>일지에 이슈·질문 기록</li><li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>멘토 미팅용 질문 3개 우선순위</li></ul></div>
+  <div class="output-box"><h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#40c4ff" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> 오늘의 산출물</h3><ul><li>cowork_first_session.md</li><li>cursor_setup_notes.md</li><li>open_questions_w1.md</li></ul></div>
+  <div class="day-nav">
+    <a href="day1.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> W1D1 – 온보딩 & AI 트렌드 오리엔테이션</a>
+    <div class="day-nav-mid">
+      <a href="../index.html">🏠 대시보드</a>
+      <a href="../calendar.html">📅 캘린더 보기</a>
+    </div>
+    <a href="day3.html">W1D3 – AI 개발 환경 셋업 ② — 젠스파크 & 오픈클로 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+  </div>
+</div>
+</body>
+</html>

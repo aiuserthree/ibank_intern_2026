@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VOC 토픽·감성 분포 (샘플)</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --card: #1a2332;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #6c63ff;
+      --accent2: #00c853;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem;
+    }
+    h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin: 1.5rem 0 0.75rem;
+    }
+    p.note {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin: 0 0 1.25rem;
+    }
+    .chart {
+      max-width: 520px;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid #ffffff14;
+      margin-bottom: 0.5rem;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+    .row:last-child { margin-bottom: 0; }
+    .label {
+      width: 7rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      line-height: 1.3;
+    }
+    .bar-wrap {
+      flex: 1;
+      height: 22px;
+      background: #ffffff10;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #7c4dff);
+      border-radius: 6px;
+      transition: width 0.4s ease;
+    }
+    .bar.sent {
+      background: linear-gradient(90deg, var(--accent2), #69f0ae);
+    }
+    .count {
+      width: 2rem;
+      text-align: right;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h1>서비스 리뷰·VOC AI 분석 대시보드 (샘플 7건)</h1>
+  <p class="note"><code>pipeline.py</code> 실행 후 <code>output/report.json</code>과 건수를 맞추거나, fetch로 JSON을 읽어 자동 갱신하세요.</p>
+
+  <h2>VOC 토픽 분포</h2>
+  <div class="chart" id="chart-topic"></div>
+
+  <h2>감성 분포</h2>
+  <div class="chart" id="chart-sent"></div>
+
+  <script>
+    const topicCounts = [
+      { label: "UX·UI", n: 2 },
+      { label: "가격·결제", n: 1 },
+      { label: "고객지원", n: 1 },
+      { label: "버그·오류", n: 2 },
+      { label: "성능·속도", n: 1 }
+    ];
+    const sentCounts = [
+      { label: "긍정", n: 2 },
+      { label: "부정", n: 5 },
+      { label: "중립", n: 0 }
+    ];
+
+    function fillChart(elId, rows, useSentBar) {
+      const max = Math.max(...rows.map((r) => r.n), 1);
+      const wrap = document.getElementById(elId);
+      rows.forEach(({ label, n }) => {
+        const row = document.createElement("div");
+        row.className = "row";
+        const barClass = useSentBar ? "bar sent" : "bar";
+        row.innerHTML =
+          '<span class="label">' + label +
+          '</span><div class="bar-wrap"><div class="' + barClass + '" style="width:' +
+          (n / max) * 100 +
+          '%"></div></div><span class="count">' +
+          n +
+          "</span>";
+        wrap.appendChild(row);
+      });
+    }
+    fillChart("chart-topic", topicCounts, false);
+    fillChart("chart-sent", sentCounts, true);
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "project": "voc_ai_dashboard_sample",
+    "project_title": "서비스 리뷰·VOC AI 분석 대시보드",
+    "schema_version": "1.1",
+    "generated_at": "2026-04-13T08:23:36.174419+09:00",
+    "model_note": "샘플: 키워드 규칙(실제 과제에서는 LLM 모델명·프롬프트 해시·Looker 연동 정보 기록)",
+    "disclaimer": "교육용 가공 리뷰·평점은 샘플이며 실제 스토어와 무관합니다."
+  },
+  "labels_definition": {
+    "voc_topic": [
+      "버그·오류",
+      "성능·속도",
+      "가격·결제",
+      "고객지원",
+      "UX·UI",
+      "기능·콘텐츠",
+      "기타"
+    ],
+    "sentiment": [
+      "긍정",
+      "부정",
+      "중립"
+    ]
+  },
+  "items": [
+    {
+      "id": 1,
+      "date": "2026-05-12",
+      "source_type": "ios_app_store",
+      "app_name": "모바일뱅킹A",
+      "rating": 2,
+      "review_excerpt": "앱 로딩이 너무 느려요 업데이트 후에도 개선이 안 됩니다",
+      "voc_topic": "성능·속도",
+      "sentiment": "부정",
+      "confidence": 0.66,
+      "evidence_one_liner": "규칙 기반 분류: VOC토픽=성능·속도, 감성=부정. (샘플: 키워드 매칭)"
+    },
+    {
+      "id": 2,
+      "date": "2026-05-12",
+      "source_type": "ios_app_store",
+      "app_name": "모바일뱅킹A",
+      "rating": 5,
+      "review_excerpt": "UI가 깔끔하고 직관적이라 처음 써도 편해요",
+      "voc_topic": "UX·UI",
+      "sentiment": "긍정",
+      "confidence": 0.7,
+      "evidence_one_liner": "규칙 기반 분류: VOC토픽=UX·UI, 감성=긍정. (샘플: 키워드 매칭)"
+    },
+    {
+      "id": 3,
+      "date": "2026-05-13",
+      "source_type": "play_store",
+      "app_name": "모바일뱅킹A",
+      "rating": 2,
+      "review_excerpt": "결제했는데 프리미엄 메뉴가 안 열려요 버그 같아요",
+      "voc_topic": "버그·오류",
+      "sentiment": "부정",
+      "confidence": 0.74,
+      "evidence_one_liner": "규칙 기반 분류: VOC토픽=버그·오류, 감성=부정. (샘플: 키워드 매칭)"
+    },
+    {
+      "id": 4,
+      "date": "2026-05-13",
+      "source_type": "play_store",
+      "app_name": "모바일뱅킹A",
+      "rating": 5,
+      "review_excerpt": "고객센터 채팅 답변이 빨라서 문의할 때 좋았어요",
+      "voc_topic": "고객지원",
+      "sentiment": "긍정",
+      "confidence": 0.78,
+      "evidence_one_liner": "규칙 기반 분류: VOC토픽=고객지원, 감성=긍정. (샘플: 키워드 매칭)"
+    },
+    {
+      "id": 5,
+      "date": "2026-05-14",
+      "source_type": "ios_app_store",
+      "app_name": "모바일뱅킹A",
+      "rating": 3,
+      "review_excerpt": "가격은 부담되지만 제공 기능은 괜찮은 편이에요",
+      "voc_topic": "가격·결제",
+      "sentiment": "부정",
+      "confidence": 0.82,
+      "evidence_one_liner": "규칙 기반 분류: VOC토픽=가격·결제, 감성=부정. (샘플: 키워드 매칭)"
+    },
+    {
+      "id": 6,
+      "date": "2026-05-14",
+      "source_type": "play_store",
+      "app_name": "모바일뱅킹A",
+      "rating": 2,
+      "review_excerpt": "검색할 때마다 오류 팝업이 떠요 수정 부탁드려요",
+      "voc_topic": "버그·오류",
+      "sentiment": "부정",
+      "confidence": 0.86,
+      "evidence_one_liner": "규칙 기반 분류: VOC토픽=버그·오류, 감성=부정. (샘플: 키워드 매칭)"
+    },
+    {
+      "id": 7,
+      "date": "2026-05-15",
+      "source_type": "ios_app_store",
+      "app_name": "모바일뱅킹A",
+      "rating": 3,
+      "review_excerpt": "알림 설정 화면이 불편하고 경로가 너무 깁니다",
+      "voc_topic": "UX·UI",
+      "sentiment": "부정",
+      "confidence": 0.62,
+      "evidence_one_liner": "규칙 기반 분류: VOC토픽=UX·UI, 감성=부정. (샘플: 키워드 매칭)"
+    }
+  ]
+}
