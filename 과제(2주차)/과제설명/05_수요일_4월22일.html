@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><title>4/22 수요일</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        background: #1A1A2E;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 24px 20px 28px;
+        gap: 20px;
+    }
+
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background: #1A1A2E;
+        border-radius: 12px;
+        padding: 48px 56px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .accent-line {
+        width: 60px;
+        height: 3px;
+        border-radius: 2px;
+        margin-bottom: 12px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 4px 20px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        margin-right: 12px;
+    }
+
+    .header-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .header-date {
+        font-size: 14px;
+        color: #B0B0C0;
+    }
+
+    .title {
+        font-size: 28px;
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 6px;
+    }
+
+    .card {
+        background: #16213E;
+        border-radius: 12px;
+        padding: 24px 28px;
+    }
+
+    .card-time {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 12px;
+    }
+
+    .card-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .card-list li {
+        font-size: 12.5px;
+        color: #B0B0C0;
+        padding: 3px 0;
+        padding-left: 16px;
+        position: relative;
+        line-height: 1.6;
+    }
+
+    .card-list li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: #B0B0C0;
+    }
+
+    .checklist-bar {
+        position: absolute;
+        bottom: 36px;
+        left: 56px;
+        right: 56px;
+        background: #0D2B45;
+        border-radius: 10px;
+        padding: 16px 24px;
+    }
+
+    .checklist-label {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .checklist-items {
+        font-size: 13px;
+        color: #fff;
+        line-height: 1.7;
+    }
+
+    .three-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    }
+
+    .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .two-col-wide-right {
+        display: grid;
+        grid-template-columns: 47% 50%;
+        gap: 3%;
+    }
+
+    .highlight-banner {
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .flow-num {
+        font-size: 14px;
+        font-weight: 700;
+        margin-right: 10px;
+    }
+
+    .flow-row {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+    }
+
+    .flow-text {
+        font-size: 14px;
+        color: #B0B0C0;
+    }
+
+    .sub-label {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .rfp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 40px;
+    }
+
+    .rfp-grid li {
+        font-size: 12px;
+    }
+
+    .slide-nav {
+        flex-shrink: 0;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        background: rgba(22, 33, 62, 0.96);
+        border: 1px solid rgba(0, 210, 255, 0.28);
+        border-radius: 999px;
+        padding: 10px 22px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(8px);
+    }
+
+    .slide-nav .nav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 100px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #fff;
+        background: #0D2B45;
+        border: 1px solid rgba(0, 210, 255, 0.35);
+        transition: background 0.15s, border-color 0.15s;
+    }
+
+    .slide-nav a.nav-btn:hover {
+        background: #16213E;
+        border-color: #00D2FF;
+    }
+
+    .slide-nav .nav-btn.disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(13, 43, 69, 0.5);
+    }
+
+    .slide-nav .nav-page {
+        font-size: 13px;
+        font-weight: 700;
+        color: #B0B0C0;
+        padding: 0 6px;
+        user-select: none;
+    }
+
+    .slide-nav button.nav-btn {
+        font-family: inherit;
+        cursor: pointer;
+    }
+
+    .toc-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 200;
+    }
+
+    .toc-panel {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: min(420px, calc(100vw - 32px));
+        max-height: min(520px, calc(100vh - 48px));
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: #16213E;
+        border: 1px solid rgba(0, 210, 255, 0.35);
+        border-radius: 14px;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+        z-index: 201;
+    }
+
+    /* HTML hidden 속성은 author CSS의 display보다 약해질 수 있어 반드시 숨김 처리 */
+    .toc-overlay[hidden],
+    .toc-panel[hidden] {
+        display: none !important;
+    }
+
+    .toc-panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-shrink: 0;
+    }
+
+    .toc-panel-head h2 {
+        font-size: 17px;
+        font-weight: 800;
+        color: #fff;
+    }
+
+    .toc-close {
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: #0D2B45;
+        color: #fff;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .toc-close:hover {
+        background: #1a3d5c;
+    }
+
+    .toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 12px 14px 16px;
+        overflow-y: auto;
+    }
+
+    .toc-item {
+        margin: 0;
+        padding: 0;
+    }
+
+    .toc-item a,
+    .toc-item span {
+        display: block;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.45;
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid transparent;
+    }
+
+    .toc-item a:hover {
+        background: rgba(0, 210, 255, 0.12);
+        border-color: rgba(0, 210, 255, 0.35);
+    }
+
+    .toc-item.toc-current span {
+        color: #00D2FF;
+        background: rgba(0, 210, 255, 0.12);
+        border-color: rgba(0, 210, 255, 0.45);
+        cursor: default;
+    }
+</style>
+
+</head><body>
+<div class="slide">
+    <div class="header-row">
+        <div class="badge" style="background:#FFA500;">WED</div>
+        <div class="header-date">4/22 (수) &nbsp;오후 1시~6시</div>
+    </div>
+    <div class="title">제안서 생성 핵심 로직 개발</div>
+    <div class="accent-line" style="background:#FFA500; width:120px; margin-bottom:16px;"></div>
+
+    <div class="highlight-banner" style="background:#FFA500;">
+        ⚡ &nbsp;이 날이 가장 중요하다. 5시간 전부를 집중해라.
+    </div>
+
+    <div class="three-col">
+        <div class="card">
+            <div class="card-time" style="color:#FFA500;">1:00 ~ 2:00</div>
+            <div class="card-title">목차 자동 구성 로직</div>
+            <ul class="card-list">
+                <li>RFP 분석 결과 기반 목차 자동 생성</li>
+                <li>RFP에 목차 지정 있으면 그것을 따름</li>
+                <li>없으면 회사 공통 목차 구조를 기본값으로</li>
+                <li>평가 배점 높은 항목에 더 많은 내용 할당</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-time" style="color:#FFA500;">2:00 ~ 4:00</div>
+            <div class="card-title">전체 파이프라인 구현</div>
+            <ul class="card-list">
+                <li>RFP 분석 → 벡터 DB 검색 → LLM 생성 연결</li>
+                <li>섹션별로 나눠서 생성하는 구조</li>
+                <li>각 섹션 생성 시 유사 과거 제안서 참고</li>
+                <li>한 번에 전체 생성 ✕ → 섹션별 생성 ○</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-time" style="color:#FFA500;">4:00 ~ 6:00</div>
+            <div class="card-title">프롬프트 튜닝 ★</div>
+            <ul class="card-list">
+                <li>핵심 1: RFP 요구사항에 정확히 대응하는 내용</li>
+                <li>핵심 2: 기존 제안서의 톤앤매너 유지</li>
+                <li>같은 입력으로 프롬프트만 바꿔 최소 3회 비교</li>
+                <li>버전별 차이와 품질을 기록으로 남겨라</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="checklist-bar">
+        <div class="checklist-label" style="color:#FFA500;">퇴근 전 체크리스트</div>
+        <div class="checklist-items">
+            ☐ &nbsp;RFP 분석 → 목차 구성 → 섹션별 제안서 생성 전체 흐름 동작<br>
+            ☐ &nbsp;생성 내용이 RFP 요구사항 반영 확인 &nbsp;&nbsp;&nbsp;&nbsp;
+            ☐ &nbsp;프롬프트 버전별 비교 기록
+        </div>
+    </div>
+</div>
+
+<nav class="slide-nav" aria-label="슬라이드 이동">
+<button type="button" class="nav-btn toc-open" id="toc-open-btn" aria-expanded="false" aria-controls="toc-panel">목록</button>
+<a class="nav-btn nav-prev" href="04_화요일_4월21일.html">← 이전</a>
+<span class="nav-page">5 / 8</span>
+<a class="nav-btn nav-next" href="06_목요일_4월23일.html">다음 →</a>
+</nav>
+<div class="toc-overlay" id="toc-overlay" hidden></div>
+<div class="toc-panel" id="toc-panel" role="dialog" aria-modal="true" aria-labelledby="toc-title" hidden>
+    <div class="toc-panel-head">
+        <h2 id="toc-title">슬라이드 목록</h2>
+        <button type="button" class="toc-close" id="toc-close-btn" aria-label="목록 닫기">×</button>
+    </div>
+    <ol class="toc-list">
+        <li class="toc-item"><a href="01_표지.html">01 · 표지</a></li>
+        <li class="toc-item"><a href="02_전체흐름.html">02 · 전체 흐름</a></li>
+        <li class="toc-item"><a href="03_월요일_4월20일.html">03 · 월요일 (4/20) · 학습 데이터 구축</a></li>
+        <li class="toc-item"><a href="04_화요일_4월21일.html">04 · 화요일 (4/21) · 벡터 DB + RFP 분석</a></li>
+        <li class="toc-item toc-current"><span>05 · 수요일 (4/22) · 제안서 생성 로직</span></li>
+        <li class="toc-item"><a href="06_목요일_4월23일.html">06 · 목요일 (4/23) · UI + 파일 출력</a></li>
+        <li class="toc-item"><a href="07_금요일_4월24일.html">07 · 금요일 (4/24) · 정리 및 발표</a></li>
+        <li class="toc-item"><a href="08_산출물_유의사항.html">08 · 산출물 · 유의사항</a></li>
+    </ol>
+</div>
+<script>
+(function () {
+  var tocBtn = document.getElementById("toc-open-btn");
+  var overlay = document.getElementById("toc-overlay");
+  var panel = document.getElementById("toc-panel");
+  var closeBtn = document.getElementById("toc-close-btn");
+
+  function tocOpen() {
+    if (!overlay || !panel || !tocBtn) return;
+    overlay.removeAttribute("hidden");
+    panel.removeAttribute("hidden");
+    tocBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function tocClose() {
+    if (!overlay || !panel || !tocBtn) return;
+    overlay.setAttribute("hidden", "");
+    panel.setAttribute("hidden", "");
+    tocBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  if (tocBtn) tocBtn.addEventListener("click", function () {
+    if (panel && panel.hasAttribute("hidden")) tocOpen(); else tocClose();
+  });
+  if (overlay) overlay.addEventListener("click", tocClose);
+  if (closeBtn) closeBtn.addEventListener("click", tocClose);
+
+  document.addEventListener("keydown", function (e) {
+    var tocVisible = panel && !panel.hasAttribute("hidden");
+    if (e.key === "Escape") {
+      if (tocVisible) {
+        e.preventDefault();
+        tocClose();
+      }
+      return;
+    }
+    if (tocVisible) return;
+    if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      var p = document.querySelector("a.nav-prev");
+      if (p) { e.preventDefault(); p.click(); }
+    }
+    if (e.key === "ArrowRight" || e.key === "PageDown") {
+      var n = document.querySelector("a.nav-next");
+      if (n) { e.preventDefault(); n.click(); }
+    }
+  });
+})();
+</script>
+</body></html>

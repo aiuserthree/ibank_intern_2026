@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><title>전체 흐름</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        background: #1A1A2E;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 24px 20px 28px;
+        gap: 20px;
+    }
+
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background: #1A1A2E;
+        border-radius: 12px;
+        padding: 48px 56px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .accent-line {
+        width: 60px;
+        height: 3px;
+        border-radius: 2px;
+        margin-bottom: 12px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 4px 20px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        margin-right: 12px;
+    }
+
+    .header-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .header-date {
+        font-size: 14px;
+        color: #B0B0C0;
+    }
+
+    .title {
+        font-size: 28px;
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 6px;
+    }
+
+    .card {
+        background: #16213E;
+        border-radius: 12px;
+        padding: 24px 28px;
+    }
+
+    .card-time {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 12px;
+    }
+
+    .card-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .card-list li {
+        font-size: 12.5px;
+        color: #B0B0C0;
+        padding: 3px 0;
+        padding-left: 16px;
+        position: relative;
+        line-height: 1.6;
+    }
+
+    .card-list li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: #B0B0C0;
+    }
+
+    .checklist-bar {
+        position: absolute;
+        bottom: 36px;
+        left: 56px;
+        right: 56px;
+        background: #0D2B45;
+        border-radius: 10px;
+        padding: 16px 24px;
+    }
+
+    .checklist-label {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .checklist-items {
+        font-size: 13px;
+        color: #fff;
+        line-height: 1.7;
+    }
+
+    .three-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    }
+
+    .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .two-col-wide-right {
+        display: grid;
+        grid-template-columns: 47% 50%;
+        gap: 3%;
+    }
+
+    .highlight-banner {
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .flow-num {
+        font-size: 14px;
+        font-weight: 700;
+        margin-right: 10px;
+    }
+
+    .flow-row {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+    }
+
+    .flow-text {
+        font-size: 14px;
+        color: #B0B0C0;
+    }
+
+    .sub-label {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .rfp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 40px;
+    }
+
+    .rfp-grid li {
+        font-size: 12px;
+    }
+
+    .slide-nav {
+        flex-shrink: 0;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        background: rgba(22, 33, 62, 0.96);
+        border: 1px solid rgba(0, 210, 255, 0.28);
+        border-radius: 999px;
+        padding: 10px 22px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(8px);
+    }
+
+    .slide-nav .nav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 100px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #fff;
+        background: #0D2B45;
+        border: 1px solid rgba(0, 210, 255, 0.35);
+        transition: background 0.15s, border-color 0.15s;
+    }
+
+    .slide-nav a.nav-btn:hover {
+        background: #16213E;
+        border-color: #00D2FF;
+    }
+
+    .slide-nav .nav-btn.disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(13, 43, 69, 0.5);
+    }
+
+    .slide-nav .nav-page {
+        font-size: 13px;
+        font-weight: 700;
+        color: #B0B0C0;
+        padding: 0 6px;
+        user-select: none;
+    }
+
+    .slide-nav button.nav-btn {
+        font-family: inherit;
+        cursor: pointer;
+    }
+
+    .toc-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 200;
+    }
+
+    .toc-panel {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: min(420px, calc(100vw - 32px));
+        max-height: min(520px, calc(100vh - 48px));
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: #16213E;
+        border: 1px solid rgba(0, 210, 255, 0.35);
+        border-radius: 14px;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+        z-index: 201;
+    }
+
+    /* HTML hidden 속성은 author CSS의 display보다 약해질 수 있어 반드시 숨김 처리 */
+    .toc-overlay[hidden],
+    .toc-panel[hidden] {
+        display: none !important;
+    }
+
+    .toc-panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-shrink: 0;
+    }
+
+    .toc-panel-head h2 {
+        font-size: 17px;
+        font-weight: 800;
+        color: #fff;
+    }
+
+    .toc-close {
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: #0D2B45;
+        color: #fff;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .toc-close:hover {
+        background: #1a3d5c;
+    }
+
+    .toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 12px 14px 16px;
+        overflow-y: auto;
+    }
+
+    .toc-item {
+        margin: 0;
+        padding: 0;
+    }
+
+    .toc-item a,
+    .toc-item span {
+        display: block;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.45;
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid transparent;
+    }
+
+    .toc-item a:hover {
+        background: rgba(0, 210, 255, 0.12);
+        border-color: rgba(0, 210, 255, 0.35);
+    }
+
+    .toc-item.toc-current span {
+        color: #00D2FF;
+        background: rgba(0, 210, 255, 0.12);
+        border-color: rgba(0, 210, 255, 0.45);
+        cursor: default;
+    }
+</style>
+
+<style>
+    .flow-card {
+        background: #16213E;
+        border-radius: 12px;
+        padding: 28px 24px;
+        text-align: left;
+    }
+    .flow-card .num {
+        font-size: 36px;
+        font-weight: 900;
+        margin-bottom: 12px;
+    }
+    .flow-card .ftitle {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+    .flow-card .fdesc {
+        font-size: 13px;
+        color: #B0B0C0;
+        line-height: 1.7;
+    }
+    .flow-grid {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        gap: 0;
+        align-items: center;
+        margin-top: 24px;
+    }
+    .flow-arrow {
+        font-size: 24px;
+        color: #B0B0C0;
+        text-align: center;
+        padding: 0 8px;
+    }
+    .day-bar {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        position: absolute;
+        bottom: 40px;
+        left: 56px;
+        right: 56px;
+    }
+    .day-chip {
+        border-radius: 8px;
+        padding: 12px 16px;
+    }
+    .day-chip .dday { font-size: 12px; font-weight: 700; color: #fff; }
+    .day-chip .ddesc { font-size: 11px; color: #fff; opacity: 0.85; margin-top: 2px; }
+</style>
+</head><body>
+<div class="slide">
+    <div class="accent-line" style="background:#00D2FF;"></div>
+    <div class="title">전체 흐름</div>
+
+    <div class="flow-grid">
+        <div class="flow-card">
+            <div class="accent-line" style="background:#00D2FF; width:40px;"></div>
+            <div class="num" style="color:#00D2FF;">01</div>
+            <div class="ftitle">RFP 분석</div>
+            <div class="fdesc">고객사 RFP 업로드<br>요구사항 자동 추출 및 구조화</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-card">
+            <div class="accent-line" style="background:#7B2FFF; width:40px;"></div>
+            <div class="num" style="color:#7B2FFF;">02</div>
+            <div class="ftitle">유사 제안서 검색</div>
+            <div class="fdesc">학습된 기존 제안서에서<br>참고할 내용 탐색</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-card">
+            <div class="accent-line" style="background:#FFA500; width:40px;"></div>
+            <div class="num" style="color:#FFA500;">03</div>
+            <div class="ftitle">제안서 초안 생성</div>
+            <div class="fdesc">RFP 요구사항 + 기존 스타일<br>기반으로 섹션별 작성</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-card">
+            <div class="accent-line" style="background:#00FF88; width:40px;"></div>
+            <div class="num" style="color:#00FF88;">04</div>
+            <div class="ftitle">파일 출력</div>
+            <div class="fdesc">Word 또는 PPT로<br>내보내기</div>
+        </div>
+    </div>
+
+    <div class="day-bar">
+        <div class="day-chip" style="background:#00D2FF;"><div class="dday">4/20 (월)</div><div class="ddesc">데이터 구축</div></div>
+        <div class="day-chip" style="background:#7B2FFF;"><div class="dday">4/21 (화)</div><div class="ddesc">DB + RFP분석</div></div>
+        <div class="day-chip" style="background:#FFA500;"><div class="dday">4/22 (수)</div><div class="ddesc">생성 로직</div></div>
+        <div class="day-chip" style="background:#FF6B9D;"><div class="dday">4/23 (목)</div><div class="ddesc">UI + 출력</div></div>
+        <div class="day-chip" style="background:#00FF88; color:#1A1A2E;"><div class="dday" style="color:#1A1A2E;">4/24 (금)</div><div class="ddesc" style="color:#1A1A2E;">발표</div></div>
+    </div>
+</div>
+
+<nav class="slide-nav" aria-label="슬라이드 이동">
+<button type="button" class="nav-btn toc-open" id="toc-open-btn" aria-expanded="false" aria-controls="toc-panel">목록</button>
+<a class="nav-btn nav-prev" href="01_표지.html">← 이전</a>
+<span class="nav-page">2 / 8</span>
+<a class="nav-btn nav-next" href="03_월요일_4월20일.html">다음 →</a>
+</nav>
+<div class="toc-overlay" id="toc-overlay" hidden></div>
+<div class="toc-panel" id="toc-panel" role="dialog" aria-modal="true" aria-labelledby="toc-title" hidden>
+    <div class="toc-panel-head">
+        <h2 id="toc-title">슬라이드 목록</h2>
+        <button type="button" class="toc-close" id="toc-close-btn" aria-label="목록 닫기">×</button>
+    </div>
+    <ol class="toc-list">
+        <li class="toc-item"><a href="01_표지.html">01 · 표지</a></li>
+        <li class="toc-item toc-current"><span>02 · 전체 흐름</span></li>
+        <li class="toc-item"><a href="03_월요일_4월20일.html">03 · 월요일 (4/20) · 학습 데이터 구축</a></li>
+        <li class="toc-item"><a href="04_화요일_4월21일.html">04 · 화요일 (4/21) · 벡터 DB + RFP 분석</a></li>
+        <li class="toc-item"><a href="05_수요일_4월22일.html">05 · 수요일 (4/22) · 제안서 생성 로직</a></li>
+        <li class="toc-item"><a href="06_목요일_4월23일.html">06 · 목요일 (4/23) · UI + 파일 출력</a></li>
+        <li class="toc-item"><a href="07_금요일_4월24일.html">07 · 금요일 (4/24) · 정리 및 발표</a></li>
+        <li class="toc-item"><a href="08_산출물_유의사항.html">08 · 산출물 · 유의사항</a></li>
+    </ol>
+</div>
+<script>
+(function () {
+  var tocBtn = document.getElementById("toc-open-btn");
+  var overlay = document.getElementById("toc-overlay");
+  var panel = document.getElementById("toc-panel");
+  var closeBtn = document.getElementById("toc-close-btn");
+
+  function tocOpen() {
+    if (!overlay || !panel || !tocBtn) return;
+    overlay.removeAttribute("hidden");
+    panel.removeAttribute("hidden");
+    tocBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function tocClose() {
+    if (!overlay || !panel || !tocBtn) return;
+    overlay.setAttribute("hidden", "");
+    panel.setAttribute("hidden", "");
+    tocBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  if (tocBtn) tocBtn.addEventListener("click", function () {
+    if (panel && panel.hasAttribute("hidden")) tocOpen(); else tocClose();
+  });
+  if (overlay) overlay.addEventListener("click", tocClose);
+  if (closeBtn) closeBtn.addEventListener("click", tocClose);
+
+  document.addEventListener("keydown", function (e) {
+    var tocVisible = panel && !panel.hasAttribute("hidden");
+    if (e.key === "Escape") {
+      if (tocVisible) {
+        e.preventDefault();
+        tocClose();
+      }
+      return;
+    }
+    if (tocVisible) return;
+    if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      var p = document.querySelector("a.nav-prev");
+      if (p) { e.preventDefault(); p.click(); }
+    }
+    if (e.key === "ArrowRight" || e.key === "PageDown") {
+      var n = document.querySelector("a.nav-next");
+      if (n) { e.preventDefault(); n.click(); }
+    }
+  });
+})();
+</script>
+</body></html>

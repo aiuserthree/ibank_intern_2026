@@ -1,0 +1,72 @@
+{
+  "interns": [
+    {
+      "name": "권미정",
+      "role": "데이터·AI 분석",
+      "background": "경영정보학과 졸업 (동아대), 삼성청년SW·AI아카데미 14기 재학 중",
+      "strengths": [
+        "GA4·GTM 기반 사용자 행동 트래킹 및 퍼널 분석",
+        "Python·SQL을 활용한 데이터 전처리 및 분석",
+        "LLM·NLP 기반 AI 서비스 기획 및 구현",
+        "Looker Studio 대시보드 구축 및 데이터 시각화",
+        "마케팅-데이터-AI 연결한 비즈니스 인사이트 도출"
+      ],
+      "projects": [
+        "Past Forward: GA4/GTM 트래킹 체계 구축, A/B테스트로 회원가입 전환율 5% 개선",
+        "서가이음: GPT-4o-mini 기반 개인화 추천 로직, LLM 추천 파이프라인 설계",
+        "Handshake: 개발 성향 기반 매칭 서비스, Cold Start 문제 해결",
+        "Naily: AI 기반 네일 추천 플랫폼 기획, CNN/GANs 활용 방안 설계"
+      ],
+      "career_goal": "데이터 기반 마케팅 운영 + AI 서비스 기획으로 글로벌 통합 운영 인재",
+      "learning_focus": "AI 툴 실무 활용, 비즈니스 데이터 분석, LLM 서비스 기획·운영",
+      "personalization_hints": "데이터 분석 관점에서 AI 툴을 바라보는 시각 강조, 마케팅·비즈니스 임팩트 연결, 이전 GA4/LLM 프로젝트 경험과 연결할 수 있는 팁 제공"
+    },
+    {
+      "name": "박수빈",
+      "role": "백엔드·AI 개발",
+      "background": "세종대학교 물리천문학과+수학과 졸업(GPA 4.0/4.5), 네이버 부스트캠프 AI Tech 7기, 삼성청년SW아카데미 9기",
+      "strengths": [
+        "Kotlin·Spring Boot 기반 백엔드 서버 개발 및 실서비스 운영",
+        "실사용자 DAU 1,120명 서비스 운영 경험 (토스 미니앱 DayLine)",
+        "AI/NLP 모델 개발 (FastText, RAG, 멀티에이전트 시스템)",
+        "시스템 아키텍처 설계 및 API 최적화",
+        "AWS 배포·운영, CI/CD(GitHub Actions)"
+      ],
+      "projects": [
+        "DayLine: 토스 미니앱, DAU 1,120명, AI 감정 분석 서비스 운영 중",
+        "공통로그인모듈: OAuth2·JWT, Rate Limiter, 아키텍처 계층 설계",
+        "단추: FastText 한국어 NLP 모델, 10GB 데이터 전처리",
+        "FinBuddy: RAG 챗봇, Router LLM 멀티에이전트, 임베딩 모델 비교 실험",
+        "봉공이봇: GPT 기반 정부기관 민원 챗봇 (최우수상)"
+      ],
+      "career_goal": "실사용자 서비스를 운영하며 문제를 해결하는 백엔드 개발자, AI 기술 서비스화",
+      "learning_focus": "AI 툴과 백엔드 시스템 통합, 프롬프트 엔지니어링, AI 서비스 설계 패턴",
+      "personalization_hints": "백엔드/시스템 관점에서 AI 툴 구조 분석, API 활용 방식·아키텍처 관점 강조, 실서비스 운영 관점에서의 팁, DayLine/FinBuddy 경험과 연결"
+    },
+    {
+      "name": "윤서연",
+      "role": "프론트엔드·AI 통합",
+      "background": "한성대학교 컴퓨터공학과 졸업, 하나은행 풀스택 부트캠프 '디지털 하나로' 수료",
+      "strengths": [
+        "Next.js·React Native·TypeScript 기반 프론트엔드 개발",
+        "AI 기능과 프론트엔드 서비스 통합 (LLM 프롬프트 엔지니어링으로 공지 자동화 99% 달성)",
+        "실서비스 2년 운영 (가는길지금 앱 - 실시간 지하철 지연 알림)",
+        "사용자 행동 분석 기반 UX 개편 (경로 저장률 6%→60% 향상)",
+        "영어 TOEIC 950·Speaking AL, 중국어 HSK 4급"
+      ],
+      "projects": [
+        "가는길지금: React Native, 2년째 운영, LLM 프롬프트로 공지 자동화 99%, UX 개편으로 저장률 10배 향상",
+        "시도: Next.js, 시니어 숙박 플랫폼, Shadcn 커스텀, JWT 토큰 처리, 강사진 최고 평가",
+        "올림: Next.js+Prisma, 군인 인편 플랫폼, 쿼리 최적화(150줄→50줄)"
+      ],
+      "career_goal": "AI 기능을 실제 서비스에 통합해 비즈니스 가치 창출하는 프론트엔드 개발자",
+      "learning_focus": "AI Agent·챗봇 프로토타입 구현, LLM 동작 원리·프롬프트 엔지니어링 심화, LangChain·ReAct 패턴",
+      "personalization_hints": "사용자 경험(UX) 관점에서 AI 툴 바라보기, 프론트엔드에서 AI 연동하는 코드·패턴 팁, 실서비스에 AI 적용한 본인 경험 연결, 앱 개발자 시각에서 Cowork/Cursor 활용법"
+    }
+  ],
+  "mentor": {
+    "name": "조준형",
+    "role": "멘토",
+    "focus": "인턴 3명의 배경 차이를 고려한 맞춤 피드백 제공"
+  }
+}
