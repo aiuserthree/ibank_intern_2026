@@ -10,5 +10,8 @@ env/
 .idea/
 .vscode/
 
+# Microsoft Office lock file (opened document); do not commit
+~$*
+
 # 100MB+ — GitHub blocks; keep file locally only
 **/JAJU_2017 Marketing Campaign_Proposal_20161222_1.pptx
