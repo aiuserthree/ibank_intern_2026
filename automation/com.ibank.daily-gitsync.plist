@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- StartCalendarInterval의 Hour/Minute는 UTC가 아니라 이 Mac의 시스템 시간대(로컬 시각) 기준. 시간대를 아시아/서울(한국)으로 맞춰 두면 평일 13:00 = KST(한국시간) 오후 1시. -->
 <plist version="1.0">
 <dict>
 	<key>Label</key>

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Daily: stage current working tree (no file edits), commit if there are changes, push.
+# 시각은 LaunchAgent plist의 StartCalendarInterval이 정함(로컬 Mac 시계; 서울 시간대면 KST).
+# Weekdays: stage current working tree (no file edits), commit if there are changes, push.
 # Does not run git pull — remote-only commits must be integrated manually if needed.
 set -euo pipefail
 
