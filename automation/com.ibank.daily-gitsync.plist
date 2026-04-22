@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!-- StartCalendarInterval의 Hour/Minute는 UTC가 아니라 이 Mac의 시스템 시간대(로컬 시각) 기준. 서울이면 평일 13:00 = KST 오후 1시. -->
-<!-- 기간(종료일)은 launchd에 없고 automation/daily-git-sync.sh에서 KST 2026-06-05(금)까지(당일 13:00 포함)로 제한. 이후엔 no-op. 불필요 시 launchctl bootout으로 job 제거. -->
+<!-- StartCalendarInterval의 Hour/Minute는 UTC가 아니라 이 Mac의 시스템 시간대(로컬 시각) 기준. 서울이면 평일 11:00 = KST 오전 11시. -->
+<!-- 기간(종료일)은 launchd에 없고 automation/daily-git-sync.sh에서 KST 2026-06-05(금)까지(당일 11:00 포함)로 제한. 이후엔 no-op. 불필요 시 launchctl bootout으로 job 제거. -->
 <plist version="1.0">
 <dict>
 	<key>Label</key>
@@ -17,7 +17,7 @@
 			<key>Weekday</key>
 			<integer>1</integer>
 			<key>Hour</key>
-			<integer>13</integer>
+			<integer>11</integer>
 			<key>Minute</key>
 			<integer>0</integer>
 		</dict>
@@ -25,7 +25,7 @@
 			<key>Weekday</key>
 			<integer>2</integer>
 			<key>Hour</key>
-			<integer>13</integer>
+			<integer>11</integer>
 			<key>Minute</key>
 			<integer>0</integer>
 		</dict>
@@ -33,7 +33,7 @@
 			<key>Weekday</key>
 			<integer>3</integer>
 			<key>Hour</key>
-			<integer>13</integer>
+			<integer>11</integer>
 			<key>Minute</key>
 			<integer>0</integer>
 		</dict>
@@ -41,7 +41,7 @@
 			<key>Weekday</key>
 			<integer>4</integer>
 			<key>Hour</key>
-			<integer>13</integer>
+			<integer>11</integer>
 			<key>Minute</key>
 			<integer>0</integer>
 		</dict>
@@ -49,7 +49,7 @@
 			<key>Weekday</key>
 			<integer>5</integer>
 			<key>Hour</key>
-			<integer>13</integer>
+			<integer>11</integer>
 			<key>Minute</key>
 			<integer>0</integer>
 		</dict>
